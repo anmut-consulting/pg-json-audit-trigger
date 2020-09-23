@@ -121,7 +121,6 @@ CREATE TABLE audit.log (
     action_tstamp_clk TIMESTAMP WITH TIME ZONE NOT NULL,
     transaction_id bigint,
     application_name text,
-    application_user text,
     client_addr inet,
     client_port integer,
     client_query text,
@@ -175,8 +174,7 @@ BEGIN
         statement_timestamp(),                        -- action_tstamp_stm
         clock_timestamp(),                            -- action_tstamp_clk
         txid_current(),                               -- transaction ID
-        current_setting('application.name'),          -- client application
-        current_setting('application.user'),          -- client user
+        current_setting('application_name'),          -- client application
         inet_client_addr(),                           -- client_addr
         inet_client_port(),                           -- client_port
         current_query(),                              -- top-level query or queries (if multistatement) from client
